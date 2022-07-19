@@ -55,14 +55,35 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_wulala_myjnidemo_MainActivity_changePersonZero(JNIEnv *env, jobject thiz, jobject person) {
 
-    jclass personClass = env->GetObjectClass(person);   // 第一步获取java类
+    jclass personClass = env->GetObjectClass(person);   // 第一步 获取java类
 
-    jstring personName = env->NewStringUTF("Wong");   // 第二步, 新建一个jstring
+    jstring personName = env->NewStringUTF("Wong");   // 第二步 新建一个jstring
 
     jmethodID setNameMethodFid = env->GetMethodID(personClass, "setName", "(Ljava/lang/String;)V");   // 第三步 获取java类的setName方法
 
     env->CallVoidMethod(person, setNameMethodFid, personName);   // 第四步, 用这个java method给java对象赋值
 
-    env->DeleteLocalRef(personName);   // 第五步释放资源
+    env->DeleteLocalRef(personName);   // 第五步 释放资源
 
+}
+extern "C"
+JNIEXPORT jobject JNICALL
+Java_com_wulala_myjnidemo_MainActivity_createPerson(JNIEnv *env, jobject thiz) {
+
+    jclass personClass = env->FindClass("com/wulala/myjnidemo/entity/Person");   // 第一步 获取类
+
+    jobject personObj = env->AllocObject(personClass);     // 第二步 相当于new一个对象, 用c来说就是malloc
+
+    jstring personName = env->NewStringUTF("Jacky");   // 第三步 准备设置name
+    jint age = 11;                                           // 第四步 相当于new一个age对象, 需要释放么?
+
+    jmethodID setNameMethodFid = env->GetMethodID(personClass, "setName", "(Ljava/lang/String;)V");   // 第五步 获取setName method
+    jmethodID setAgeMethodFid = env->GetMethodID(personClass, "setAge", "(I)V");                      // 第五步 获取 setAge method
+
+    env->CallVoidMethod(personObj, setNameMethodFid, personName);   // 第六步 用这个java method给java对象赋值
+    env->CallVoidMethod(personObj, setAgeMethodFid, age);           // 第六步 用这个java method给java对象赋值
+
+    env->DeleteLocalRef(personName);   // 第七步 释放资源
+
+    return personObj;
 }

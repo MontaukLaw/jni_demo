@@ -82,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "person name changed to " + p.getName());
             }
         });
+
+        binding.createObjInCBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Person p = createPerson();
+                Log.d(TAG, "P created: " + p.toString());
+            }
+        });
     }
 
     public void onChangeBtnClick() {
@@ -93,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
     public void callByC() {
         Log.d(TAG, "Call by C");
     }
+
+    public native Person createPerson();
 
     public native void changePersonZero(Person person);
 
