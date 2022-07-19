@@ -26,6 +26,7 @@ Java_com_wulala_myjnidemo_MainActivity_changeText(JNIEnv *env, jobject thiz) {
 
     env->SetObjectField(thiz, centerTextFid, newValue);    // 第四步, 给java的field赋值
 
+    env->DeleteLocalRef(newValue);    // 第五步 释放资源
     // 已测试可用
 }
 
@@ -49,18 +50,19 @@ Java_com_wulala_myjnidemo_MainActivity_callJavaMethod(JNIEnv *env, jobject thiz)
     env->CallVoidMethod(thiz, methodFieldFid);    // 第三步, 调用
 
 }
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_wulala_myjnidemo_MainActivity_changePersonZero(JNIEnv *env, jobject thiz, jobject person) {
 
-    jclass mainActivityClass = env->GetObjectClass(thiz);
+    jclass personClass = env->GetObjectClass(person);   // 第一步获取java类
 
-    jclass personClass = env->GetObjectClass(person);
+    jstring personName = env->NewStringUTF("Wong");   // 第二步, 新建一个jstring
 
-    jstring personName = env->NewStringUTF("Wong");
+    jmethodID setNameMethodFid = env->GetMethodID(personClass, "setName", "(Ljava/lang/String;)V");   // 第三步 获取java类的setName方法
 
-    jmethodID setNameMethodFid = env->GetMethodID(personClass, "setName", "(Ljava/lang/String;)V");
+    env->CallVoidMethod(person, setNameMethodFid, personName);   // 第四步, 用这个java method给java对象赋值
 
-    env->CallVoidMethod(person, setNameMethodFid, personName);
+    env->DeleteLocalRef(personName);   // 第五步释放资源
 
 }
