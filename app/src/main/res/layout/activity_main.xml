@@ -30,8 +30,8 @@
         android:id="@+id/plus_one_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/plus_one"
         android:layout_marginTop="25dp"
+        android:text="@string/plus_one"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number_text" />
@@ -45,5 +45,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/call_java_in_c_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/c_java"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plus_one_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

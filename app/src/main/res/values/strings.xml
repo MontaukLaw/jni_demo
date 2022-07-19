@@ -3,4 +3,5 @@
     <string name="change_btn_text">改!</string>
     <string name="number_text_init_str">1</string>
     <string name="plus_one">+1</string>
+    <string name="c_java">c调用Java</string>
 </resources>

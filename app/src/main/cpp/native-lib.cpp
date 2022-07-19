@@ -35,3 +35,17 @@ JNIEXPORT jint JNICALL
 Java_com_wulala_myjnidemo_MainActivity_plusOne(JNIEnv *env, jobject thiz, jint number) {
     return number + 1;    // 可见有传参的情况下, 无需那么多jni的调用.
 }
+
+// 这个函数调用了Java的一个没有形参没有返回值的method
+// 最终现象是在Java的logd中输出.
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_wulala_myjnidemo_MainActivity_callJavaMethod(JNIEnv *env, jobject thiz) {
+
+    jclass mainActivityClass = env->GetObjectClass(thiz);  // 第一步, 获取MainActivity类
+
+    jmethodID methodFieldFid = env->GetMethodID(mainActivityClass, "callByC", "()V");
+
+    env->CallVoidMethod(thiz, methodFieldFid);
+
+}

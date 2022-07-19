@@ -53,7 +53,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 numberTextNumber = plusOne(numberTextNumber);  // 重新赋值
-                binding.numberText.setText(numberTextNumber+ "");
+                binding.numberText.setText(numberTextNumber + "");
+            }
+        });
+
+        binding.callJavaInCBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                callJavaMethod();
             }
         });
     }
@@ -63,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
         changeText();
         tv.setText(centerText);
     }
+
+    public void callByC() {
+        Log.d(TAG, "Call by C");
+    }
+
+    public native void callJavaMethod();
 
     public native int plusOne(int number);
 
