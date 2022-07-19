@@ -44,8 +44,23 @@ Java_com_wulala_myjnidemo_MainActivity_callJavaMethod(JNIEnv *env, jobject thiz)
 
     jclass mainActivityClass = env->GetObjectClass(thiz);  // 第一步, 获取MainActivity类
 
-    jmethodID methodFieldFid = env->GetMethodID(mainActivityClass, "callByC", "()V");
+    jmethodID methodFieldFid = env->GetMethodID(mainActivityClass, "callByC", "()V");  // 第二步, 获取Java中method的fid
 
-    env->CallVoidMethod(thiz, methodFieldFid);
+    env->CallVoidMethod(thiz, methodFieldFid);    // 第三步, 调用
+
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_wulala_myjnidemo_MainActivity_changePersonZero(JNIEnv *env, jobject thiz, jobject person) {
+
+    jclass mainActivityClass = env->GetObjectClass(thiz);
+
+    jclass personClass = env->GetObjectClass(person);
+
+    jstring personName = env->NewStringUTF("Wong");
+
+    jmethodID setNameMethodFid = env->GetMethodID(personClass, "setName", "(Ljava/lang/String;)V");
+
+    env->CallVoidMethod(person, setNameMethodFid, personName);
 
 }

@@ -4,4 +4,5 @@
     <string name="number_text_init_str">1</string>
     <string name="plus_one">+1</string>
     <string name="c_java">c调用Java</string>
+    <string name="change_array_item">修改数组元素0</string>
 </resources>

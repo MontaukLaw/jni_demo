@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wulala.myjnidemo.databinding.ActivityMainBinding;
+import com.wulala.myjnidemo.entity.Person;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     String centerText = "Oh yeah";
 
     int numberTextNumber = 2;
+
+    Person[] persons = new Person[10];
+    Person p = new Person();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -57,10 +61,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.callJavaInCBtn.setOnClickListener(new View.OnClickListener(){
+        binding.callJavaInCBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callJavaMethod();
+            }
+        });
+
+        p.setAge(11);
+        p.setName("Lee");
+        p.setSex(1);
+
+        persons[0] = p;
+        Log.d(TAG, "Person[" + 0 + "]: " + persons[0].getName() + " is " + persons[0].getAge());
+
+        binding.changeArrayItem0Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePersonZero(p);
+                Log.d(TAG, "person name changed to " + p.getName());
             }
         });
     }
@@ -74,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
     public void callByC() {
         Log.d(TAG, "Call by C");
     }
+
+    public native void changePersonZero(Person person);
 
     public native void callJavaMethod();
 
